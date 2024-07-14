@@ -1,0 +1,139 @@
+pip install openai
+import openai
+
+# Set up the OpenAI API key
+openai.api_key = 'YOUR_OPENAI_API_KEY'
+
+def generate_response(prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-003",  # GPT-3.5 engine
+        prompt=prompt,
+        max_tokens=150,  # Limit the length of the response
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+    return response.choices[0].text.strip()
+
+# Example usage
+common_inquiry = "How can I reset my password?"
+response = generate_response(f"Customer Inquiry: {common_inquiry}\nSupport Response:")
+print(f"AI Response: {response}")
+import openai
+
+# Set up the OpenAI API key
+openai.api_key = 'YOUR_OPENAI_API_KEY'
+
+def generate_personalized_message(customer_name, interaction_history):
+    prompt = f"Create a personalized engagement message for a customer named {customer_name}. Based on the following interaction history: {interaction_history}"
+    response = openai.Completion.create(
+        engine="text-davinci-003",  # GPT-3.5 engine
+        prompt=prompt,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+    return response.choices[0].text.strip()
+
+# Example usage
+customer_name = "John Doe"
+interaction_history = "John has contacted us twice in the last month regarding issues with his account login. He also expressed interest in our premium services."
+personalized_message = generate_personalized_message(customer_name, interaction_history)
+print(f"Personalized Message: {personalized_message}")
+
+
+from flask import Flask, request, jsonify
+import openai
+
+app = Flask(__name__)
+openai.api_key = 'YOUR_OPENAI_API_KEY'
+
+@app.route('/generate-response', methods=['POST'])
+def generate_response_endpoint():
+    data = request.json
+    prompt = data.get('prompt')
+    response = generate_response(prompt)
+    return jsonify({'response': response})
+
+@app.route('/personalized-message', methods=['POST'])
+def personalized_message_endpoint():
+    data = request.json
+    customer_name = data.get('customer_name')
+    interaction_history = data.get('interaction_history')
+    message = generate_personalized_message(customer_name, interaction_history)
+    return jsonify({'message': message})
+
+def generate_response(prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+    return response.choices[0].text.strip()
+
+def generate_personalized_message(customer_name, interaction_history):
+    prompt = f"Create a personalized engagement message for a customer named {customer_name}. Based on the following interaction history: {interaction_history}"
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+    return response.choices[0].text.strip()
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+from flask import Flask, request, jsonify
+import openai
+
+app = Flask(__name__)
+openai.api_key = 'YOUR_OPENAI_API_KEY'
+
+@app.route('/generate-response', methods=['POST'])
+def generate_response_endpoint():
+    data = request.json
+    prompt = data.get('prompt')
+    response = generate_response(prompt)
+    return jsonify({'response': response})
+
+@app.route('/personalized-message', methods=['POST'])
+def personalized_message_endpoint():
+    data = request.json
+    customer_name = data.get('customer_name')
+    interaction_history = data.get('interaction_history')
+    message = generate_personalized_message(customer_name, interaction_history)
+    return jsonify({'message': message})
+
+def generate_response(prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+    return response.choices[0].text.strip()
+
+def generate_personalized_message(customer_name, interaction_history):
+    prompt = f"Create a personalized engagement message for a customer named {customer_name}. Based on the following interaction history: {interaction_history}"
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+    return response.choices[0].text.strip()
+
+if __name__ == '__main__':
+    app.run(debug=True)
